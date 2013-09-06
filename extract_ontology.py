@@ -12,14 +12,15 @@ output_file = output_name + '.nt'
 
 # for Virtuoso: endpoint = 'http://localhost:8890/sparql?query='
 
-useRDFlib = False
+useRDFlib = True
 
 if useRDFlib:
 	g = rdflib.Graph()
-	g.add((n[ontology_name], RDF['type'], OWL['Ontology']))
+	ns = rdflib.Namespace(ontology_name)
+	g.add((ns['title'], RDF['type'], OWL['Ontology']))
 else:
 	f = open(output_file, 'w')
-	f.write(ontology_name + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .')
+	f.write('<' + ontology_name + '>' + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .\n')
 
 print 'SPARQL endpoint: ' + endpoint + ', graph: ' + graph + ', output file: ' + output_file
 
@@ -36,7 +37,8 @@ r = ''.join(res.readlines())
 if useRDFlib:
 	g.parse(data=r, format='nt')
 else:
-	f.write(r)
+	if not r.find('Empty'):
+		f.write(r)
 
 # q = 'CONSTRUCT {?p a owl:DatatypeProperty} FROM ' + graph + ' WHERE {?s ?p ?o FILTER (!STRSTARTS(STR(?p), "http://www.w3.org/") && ISLITERAL(?o))}'
 # q = 'CONSTRUCT {?p a owl:DatatypeProperty} FROM ' + graph + ' WHERE {?s ?p ?o FILTER (!STRSTARTS(STR(?p), "http://www.w3.org/") && ISLITERAL(?o))} GROUP BY ?p'
@@ -49,7 +51,8 @@ r2 = ''.join(res.readlines())
 if useRDFlib:
 	g.parse(data=r2, format='nt')
 else:
-	f.write(r2)
+	if not r2.find('Empty'):
+		f.write(r2)
 
 q = 'CONSTRUCT {?c a rdfs:Class} FROM ' + graph + ' WHERE {?s a ?c}'
 req = urllib2.Request(endpoint + urllib2.quote(q))
@@ -60,7 +63,8 @@ r3 = ''.join(res.readlines())
 if useRDFlib:
 	g.parse(data=r3, format='nt')
 else:
-	f.write(r3)
+	if not r3.find('Empty'):
+		f.write(r3)
 
 if useRDFlib:
 	g.commit()
