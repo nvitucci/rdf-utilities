@@ -5,7 +5,7 @@ def usage():
 	print sys.argv[0] + ' -d <data_file> -o <ont_file> '
 
 def get_format(filename):
-	ext = filename.split('.')[1]
+	ext = filename.split('.')[-1]
 
 	if ext == 'nt':
 		return 'nt'
@@ -59,7 +59,8 @@ for d in data_files:
 
 for o in ont_files:
 	form = get_format(o)
-	print 'File: ' + o + ', format: ' + form
+	print 'File: ' + o
+	print 'Format: ' + form
 	
 	ont_file = open(o, 'r')
 	g.parse(file=ont_file, format=form)
