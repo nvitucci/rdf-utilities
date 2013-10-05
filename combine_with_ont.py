@@ -59,8 +59,7 @@ for d in data_files:
 
 for o in ont_files:
 	form = get_format(o)
-	print 'File: ' + o
-	print 'Format: ' + form
+	print 'File: ' + o + ', format: ' + form
 	
 	ont_file = open(o, 'r')
 	g.parse(file=ont_file, format=form)
