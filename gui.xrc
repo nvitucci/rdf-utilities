@@ -8,7 +8,6 @@
           <object class="notebookpage">
             <object class="wxPanel">
               <object class="wxBoxSizer">
-                <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
                   <object class="wxTreeCtrl" name="classTree">
                     <style>wxTR_HAS_BUTTONS</style>
@@ -20,6 +19,7 @@
                   <option>1</option>
                   <flag>wxALL|wxEXPAND</flag>
                 </object>
+                <orient>wxHORIZONTAL</orient>
               </object>
             </object>
             <label>Classes</label>
@@ -27,14 +27,64 @@
           <object class="notebookpage">
             <object class="wxPanel">
               <object class="wxBoxSizer">
-                <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
-                  <object class="wxTreeCtrl" name="dataPropTree">
+                  <object class="wxTreeCtrl" name="objPropTree">
                     <style>wxTR_HAS_BUTTONS</style>
                   </object>
                   <option>1</option>
                   <flag>wxALL|wxEXPAND</flag>
                 </object>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="funcProp">
+                        <label>Functional property</label>
+                        <enabled>0</enabled>
+                      </object>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="invFuncProp">
+                        <label>Inverse functional property</label>
+                        <enabled>0</enabled>
+                      </object>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="transProp">
+                        <label>Transitive property</label>
+                        <enabled>0</enabled>
+                      </object>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="symProp">
+                        <label>Symmetric property</label>
+                        <enabled>0</enabled>
+                      </object>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="asymProp">
+                        <label>Asymmetric property</label>
+                        <enabled>0</enabled>
+                      </object>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="refProp">
+                        <label>Reflexive property</label>
+                        <enabled>0</enabled>
+                      </object>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="irrefProp">
+                        <label>Irreflexive property</label>
+                        <enabled>0</enabled>
+                      </object>
+                    </object>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <option>0</option>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>10</border>
+                </object>
+                <orient>wxHORIZONTAL</orient>
               </object>
             </object>
             <label>Object properties</label>
@@ -42,13 +92,27 @@
           <object class="notebookpage">
             <object class="wxPanel">
               <object class="wxBoxSizer">
-                <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
-                  <object class="wxTreeCtrl" name="objPropTree">
+                  <object class="wxTreeCtrl" name="dataPropTree">
                     <style>wxTR_HAS_BUTTONS</style>
                   </object>
                   <option>1</option>
                   <flag>wxALL|wxEXPAND</flag>
+                </object>
+                <orient>wxHORIZONTAL</orient>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="dataFuncProp">
+                        <label>Data functional property</label>
+                        <enabled>0</enabled>
+                      </object>
+                    </object>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <option>0</option>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>10</border>
                 </object>
               </object>
             </object>
