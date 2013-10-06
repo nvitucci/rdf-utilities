@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxFrame" name="MainFrame">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxNotebook">
+          <object class="notebookpage">
+            <object class="wxPanel">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxTreeCtrl" name="classTree">
+                    <style>wxTR_HAS_BUTTONS</style>
+                    <XRCED>
+                      <events>EVT_TREE_SEL_CHANGED</events>
+                      <assign_var>1</assign_var>
+                    </XRCED>
+                  </object>
+                  <option>1</option>
+                  <flag>wxALL|wxEXPAND</flag>
+                </object>
+              </object>
+            </object>
+            <label>Classes</label>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxTreeCtrl" name="dataPropTree">
+                    <style>wxTR_HAS_BUTTONS</style>
+                  </object>
+                  <option>1</option>
+                  <flag>wxALL|wxEXPAND</flag>
+                </object>
+              </object>
+            </object>
+            <label>Object properties</label>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxTreeCtrl" name="objPropTree">
+                    <style>wxTR_HAS_BUTTONS</style>
+                  </object>
+                  <option>1</option>
+                  <flag>wxALL|wxEXPAND</flag>
+                </object>
+              </object>
+            </object>
+            <label>Datatype properties</label>
+          </object>
+        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>10</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticText" name="status">
+          <label>Status bar</label>
+        </object>
+        <option>0</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>10</border>
+      </object>
+    </object>
+    <size>800,600</size>
+    <title>GUI</title>
+  </object>
+</resource>

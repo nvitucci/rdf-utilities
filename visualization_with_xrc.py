@@ -3,9 +3,10 @@
 # treectrl.py
 
 import wx, rdflib, sys
+import wx.xrc as xrc
 from rdflib import RDF, RDFS, OWL
 
-class MyFrame(wx.Frame):
+class MyApp(wx.App):
 	def viewMode(self, item, g, mode):
 		if mode == 'qname':
 			try:
@@ -36,26 +37,16 @@ class MyFrame(wx.Frame):
 
 			new_lev = new_lev_temp
 
-	def __init__(self, parent, id, title):
-		wx.Frame.__init__(self, parent, id, title, wx.DefaultPosition, wx.Size(800, 600))
+	def OnInit(self):
+		xrcfile = 'gui.xrc'
+		self.xrc = xrc.XmlResource(xrcfile)
 
-		vbox = wx.BoxSizer(wx.VERTICAL)
-		hbox = wx.BoxSizer(wx.HORIZONTAL)
-		vbox1 = wx.BoxSizer(wx.VERTICAL)
-		vbox2 = wx.BoxSizer(wx.VERTICAL)
-		vbox3 = wx.BoxSizer(wx.VERTICAL)
-		panel1 = wx.Panel(self, -1)
-		panel2 = wx.Panel(self, -1)
-		panel3 = wx.Panel(self, -1)
-		panelX = wx.Panel(self, -1)
+		self.frame = self.xrc.LoadFrame(None, "MainFrame")
+		self.frame.Maximize()
 
-		# This hides root
-		# self.classTree = wx.TreeCtrl(panel1, 1, wx.DefaultPosition, (-1,-1), wx.TR_HIDE_ROOT|wx.TR_HAS_BUTTONS)
-
-		# Do not hide root
-		self.classTree = wx.TreeCtrl(panel1, 1, wx.DefaultPosition, (-1,-1), wx.TR_HAS_BUTTONS)
-		self.objPropTree = wx.TreeCtrl(panel2, 1, wx.DefaultPosition, (-1,-1), wx.TR_HAS_BUTTONS)
-		self.dataPropTree = wx.TreeCtrl(panel3, 1, wx.DefaultPosition, (-1,-1), wx.TR_HAS_BUTTONS)
+		self.classTree = xrc.XRCCTRL(self.frame, "classTree")
+		self.objPropTree = xrc.XRCCTRL(self.frame, "objPropTree")
+		self.dataPropTree = xrc.XRCCTRL(self.frame, "dataPropTree")
 
 		# ----------------------------
 		
@@ -105,35 +96,21 @@ class MyFrame(wx.Frame):
 
 		# ----------------------------
 
-		self.classTree.Bind(wx.EVT_TREE_SEL_CHANGED, self.OnSelChanged, id=1)
-		self.display = wx.StaticText(panelX, -1, '', style=wx.ALIGN_CENTRE)
+		self.display = xrc.XRCCTRL(self.frame, "status")
 		
-		vbox1.Add(self.classTree, 1, wx.EXPAND | wx.ALL, 10)
-		vbox2.Add(self.objPropTree, 1, wx.EXPAND | wx.ALL, 10)
-		vbox3.Add(self.dataPropTree, 1, wx.EXPAND | wx.ALL, 10)
-		hbox.Add(panel1, 1, wx.EXPAND)
-		hbox.Add(panel2, 1, wx.EXPAND)
-		hbox.Add(panel3, 1, wx.EXPAND)
-		vbox.Add(hbox, 1, wx.EXPAND)
-		vbox.Add(panelX, 0, wx.EXPAND | wx.ALL, 10)
-		panel1.SetSizer(vbox1)
-		panel2.SetSizer(vbox2)
-		panel3.SetSizer(vbox3)
+		# wx.EVT_TREE_SEL_CHANGED(self.classTree, self.classTree.GetId(), self.OnSelChanged)
+		self.frame.Bind(wx.EVT_TREE_SEL_CHANGED, self.OnSelChanged, id=xrc.XRCID("classTree"))
 		
-		self.SetSizer(vbox)
-		self.Centre()
+		self.frame.Centre()
+		self.frame.Show(1)
 
-	def OnSelChanged(self, event):
-		item =  event.GetItem()
-		self.display.SetLabel(self.classTree.GetItemText(item))
-
-class MyApp(wx.App):
-	def OnInit(self):
-		frame = MyFrame(None, -1, 'treectrl.py')
-		frame.Show(True)
-		self.SetTopWindow(frame)
 		return True
 
-app = MyApp(0)
-app.MainLoop()
+	def OnSelChanged(self, event):
+		item = event.GetItem()
+		self.display.SetLabel(self.classTree.GetItemText(item))
+
+if __name__ == '__main__':
+	app = MyApp(0)
+	app.MainLoop()
 
