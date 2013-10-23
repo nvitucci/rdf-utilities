@@ -17,7 +17,7 @@ useRDFlib = True
 if useRDFlib:
 	g = rdflib.Graph()
 	ns = rdflib.Namespace(ontology_name + '/')
-	g.add((ontology_name, RDF['type'], OWL['Ontology']))
+	g.add((rdflib.URIRef(ontology_name), RDF['type'], OWL['Ontology']))
 else:
 	f = open(output_file, 'w')
 	f.write('<' + ontology_name + '>' + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .\n')
